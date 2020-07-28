@@ -9,7 +9,7 @@ class Connection{
     private function connect(){
         try {
             require_once 'config.php';
-            $conn = new PDO('mysql:host=' . DB_SERVER . ';dbname=' . DB_DATABASE, DB_USER, DB_PASSWORD);
+            $conn = new PDO('mysql:host=' . DB_SERVER . ';dbname=' . DB_DATABASE . ';port=' . PORT, DB_USER, DB_PASSWORD);
             $conn -> exec("set names utf8");
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
