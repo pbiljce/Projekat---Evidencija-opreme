@@ -11,18 +11,20 @@
 
     if (isset($_POST["id"])) {
         $id = (int)$_POST["id"];
-        $employees = $emp->selectAll('equipemployee');
-        $i = 0;
-        foreach($employees as $em){
-            if($em['employees_id']==$id){
-                $i++;
-            }
-        }
-        if($i==0){
-            $emp->del('employees',$id); 
-            echo "Podaci su obrisani.";
-        }else {
-            echo "Podaci nisu obrisani. Morate prvo razdužiti korisnika zaduženom opremom.";
-        }
+        $emp->del('employees',$id); 
+        echo "Podaci o zaposlenom su obrisani.";
+        // $employees = $emp->selectAll('equipemployee');
+        // $i = 0;
+        // foreach($employees as $em){
+        //     if($em['employees_id']==$id){
+        //         $i++;
+        //     }
+        // }
+        // if($i==0){
+        //     $emp->del('employees',$id); 
+        //     echo "Podaci su obrisani.";
+        // }else {
+        //     echo "Podaci nisu obrisani. Morate prvo razdužiti korisnika zaduženom opremom.";
+        // }
     }
 ?>

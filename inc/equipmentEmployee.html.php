@@ -54,13 +54,13 @@
                     <?php 
                     $j = 0;             
                     foreach($freeEquip as $equiprow){?>
-                        <tr>
+                         <tr onclick="selectRow(this)">
                             <td><?=++$j?></td>
                             <td><?=$equiprow["equiptype"]?></td>
                             <td><?=$equiprow["equipproducer"]?></td>
                             <td><?=$equiprow["inventory"]?></td>
                             <td><?=$equiprow["serialnumber"]?></td>
-                            <td><input type="checkbox" name='checkEquip' value=<?=$equiprow['equipment_id']?> id=<?=$equiprow['equipment_id']?>></td>
+                            <td><input type="checkbox" name='checkEquip' value=<?=$equiprow['equipment_id']?> id=<?=$equiprow['equipment_id']?>></td>                           
                         </tr>
                     <?php } ?>
                 </table>
@@ -88,7 +88,7 @@
                     <?php 
                     $i = 0;        
                     foreach($userEquip as $equipemp){?>
-                        <tr>
+                        <tr onclick="selectRow(this)">
                             <td><?=++$i?></td>
                             <td><?=$equipemp["equiptype"]?></td>
                             <td><?=$equipemp["equipproducer"]?></td>

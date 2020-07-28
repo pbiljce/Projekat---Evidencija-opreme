@@ -3,12 +3,16 @@
     require 'Database.class.php'; 
     require 'Office.class.php';
     require 'Organization.class.php';
+    require 'Employees.class.php';
     
     $off = new Office();
     $office = $off->selectAll('office');
 
     $org = new Organization();
     $organization = $org->selectAll('organization');
+
+    $emp = new Employees();
+    $employees = $emp->selectAll('employees');
     
     if(isset($_POST['saveOffice'])){
         $off->insert("office","office","'" . $_POST["office"]."'");
@@ -61,7 +65,23 @@
                             <td><?=$row["office"]?></td>
                             <td>
                                 <button class="button" onclick="Change(<?=$row['office_id']?>,'officeChange','inc/officeChange.html.php')">Izmjena podatka o broju kancelarije</button>
-                                <button class="button red" onclick="Del(<?=$row['office_id']?>,'officeDelete','message','index.php?page=officeOrganization','inc/officeDelete.html.php')">Brisanje podataka o broju kancelarije</button>
+                                <!-- <button class="button red" onclick="Del(<?=$row['office_id']?>,'officeDelete','message','index.php?page=officeOrganization','inc/officeDelete.html.php')">Brisanje podataka o broju kancelarije</button> -->
+                                <?php
+                                    $id = $row['office_id'];
+                                    $i = 0;
+                                    foreach($employees as $em){
+                                        if($em['office_id']==$id){
+                                            $i++;
+                                        }
+                                    }
+                                    if($i != 0){ 
+                                        echo "<button class=\"button red\" onclick=\"DeleteMessage('Brisanje ovog broja kancelarije nije moguće, jer postoji zaposleni za kojeg je navedeno da je u ovoj kancelariji.','officeDelete')\">Brisanje podataka o broju kancelarije</button>";    
+                                    }else {
+                                ?>
+                                    <button class="button red" onclick="Del(<?=$row['office_id']?>,'officeDelete','message','index.php?page=officeOrganization','inc/officeDelete.html.php')">Brisanje podataka o broju kancelarije</button>
+                                <?php
+                                    }
+                                ?>
                             </td>
                         </tr>
                     <?php }?>
@@ -98,7 +118,23 @@
                             <td><?=$row["organization"]?></td>
                             <td>
                                 <button class="button" onclick="Change(<?=$row['organization_id']?>,'organizationChange','inc/organizationChange.html.php')">Izmjena podatka o organizacionoj jedinici</button>
+                                <!-- <button class="button red" onclick="Del(<?=$row['organization_id']?>,'organizationDelete','messageOrganization','index.php?page=officeOrganization','inc/organizationDelete.html.php')">Brisanje podataka o organizacionoj jedinici</button> -->
+                                <?php
+                                    $id = $row['organization_id'];
+                                    $j = 0;
+                                    foreach($employees as $em){
+                                        if($em['organization_id']==$id){
+                                            $j++;
+                                        }
+                                    }
+                                    if($j != 0){ 
+                                        echo "<button class=\"button red\" onclick=\"DeleteMessage('Brisanje ovog broja kancelarije nije moguće, jer postoji zaposleni za kojeg je navedeno da je u ovoj kancelariji.','organizationDelete')\">Brisanje podataka o organizacionoj jedinici</button>";    
+                                    }else {
+                                ?>
                                 <button class="button red" onclick="Del(<?=$row['organization_id']?>,'organizationDelete','messageOrganization','index.php?page=officeOrganization','inc/organizationDelete.html.php')">Brisanje podataka o organizacionoj jedinici</button>
+                                <?php
+                                    }
+                                ?>
                             </td>
                         </tr>
                     <?php }?>

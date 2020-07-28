@@ -8,19 +8,21 @@
 
     if (isset($_POST["id"])) {
         $id = (int)$_POST["id"];
-        $equi = new Equipment();
-        $equipment = $equi->selectAll('equipment');
-        $i = 0;
-        foreach($equipment as $eq){
-            if($eq['equiptype_id']==$id){
-                $i++;
-            }
-        }
-        if($i==0){
-            $typ->del('equiptype',$id);  
-            echo "Podaci su obrisani.";
-        }else {
-            echo "Podaci nisu obrisani, jer postoji unešena oprema koja ima ovaj tip.";
-        }
+        $typ->del('equiptype',$id);  
+        echo "Podaci o tipu opreme su obrisani.";
+        // $equi = new Equipment();
+        // $equipment = $equi->selectAll('equipment');
+        // $i = 0;
+        // foreach($equipment as $eq){
+        //     if($eq['equiptype_id']==$id){
+        //         $i++;
+        //     }
+        // }
+        // if($i==0){
+        //     $typ->del('equiptype',$id);  
+        //     echo "Podaci su obrisani.";
+        // }else {
+        //     echo "Podaci nisu obrisani, jer postoji unešena oprema koja ima ovaj tip.";
+        // }
     }
 ?>

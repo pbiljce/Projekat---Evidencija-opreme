@@ -3,13 +3,17 @@
     require 'Database.class.php'; 
     require 'Type.class.php';
     require 'Producer.class.php';
+    require 'Equipment.class.php';
     
     $ty = new Type();
     $type = $ty->selectAll('equiptype');
 
     $pro = new Producer();
     $producer = $pro->selectAll('equipproducer');
-    
+
+    $equi = new Equipment();
+    $equipment = $equi->selectAll('equipment');
+        
     if(isset($_POST['saveEquipType'])){
         $ty->insert("equiptype","equiptype","'" . $_POST["equiptype"]."'");
         echo "<script>window.location.href='index.php?page=typeProducer';</script>";
@@ -62,8 +66,23 @@
                             <td><?=$row["equiptype"]?></td>
                             <td>
                                 <button class="button" onclick="Change(<?=$row['equiptype_id']?>,'equipTypeChange','inc/typeChange.html.php')">Izmjena podatka o tipu opreme</button>
-                                <button class="button red" onclick="Del(<?=$row['equiptype_id']?>,'equipTypeDelete','message','index.php?page=typeProducer','inc/typeDelete.html.php')">Brisanje podataka o tipu opreme</button>
-                                
+                                <!-- <button class="button red" onclick="Del(<?=$row['equiptype_id']?>,'equipTypeDelete','message','index.php?page=typeProducer','inc/typeDelete.html.php')">Brisanje podataka o tipu opreme</button> -->
+                            <?php
+                                $id = $row['equiptype_id'];
+                                $i = 0;
+                                foreach($equipment as $eq){
+                                    if($eq['equiptype_id']==$id){
+                                        $i++;
+                                    }
+                                }
+                                if($i != 0){ 
+                                    echo "<button class=\"button red\" onclick=\"DeleteMessage('Brisanje ovog tipa opreme nije moguće, jer postoji unešena oprema koja je ovog tipa.','equipTypeDelete')\">Brisanje podataka</button>";    
+                                }else {
+                            ?>
+                                <button class="button red" onclick="Del(<?=$row['equiptype_id']?>,'equipTypeDelete','message','index.php?page=typeProducer','inc/typeDelete.html.php')">Brisanje podataka</button>
+                            <?php
+                                }
+                            ?>
                             </td>
                         </tr>
                     <?php }?>
@@ -100,7 +119,23 @@
                             <td><?=$row["equipproducer"]?></td>
                             <td>
                                 <button class="button" onclick="Change(<?=$row['equipproducer_id']?>,'equipProducerChange','inc/producerChange.html.php')">Izmjena podatka o proizvođaču opreme</button>
-                                <button class="button red" onclick="Del(<?=$row['equipproducer_id']?>,'equipProducerDelete','messageProducer','index.php?page=typeProducer','inc/producerDelete.html.php')">Brisanje podataka o proizvođaču opreme</button>
+                                <!-- <button class="button red" onclick="Del(<?=$row['equipproducer_id']?>,'equipProducerDelete','messageProducer','index.php?page=typeProducer','inc/producerDelete.html.php')">Brisanje podataka o proizvođaču opreme</button> -->
+                                <?php
+                                    $id = $row['equipproducer_id'];
+                                    $j = 0;
+                                    foreach($equipment as $eq){
+                                        if($eq['equipproducer_id']==$id){
+                                            $j++;
+                                        }
+                                    }
+                                    if($j != 0){ 
+                                        echo "<button class=\"button red\" onclick=\"DeleteMessage('Brisanje ovog proizvođača opreme nije moguće, jer postoji unešena oprema koja je od ovog proizvođača.','equipProducerDelete')\">Brisanje podataka</button>";    
+                                    }else {
+                                ?>
+                                    <button class="button red" onclick="Del(<?=$row['equipproducer_id']?>,'equipProducerDelete','messageProducer','index.php?page=typeProducer','inc/producerDelete.html.php')">Brisanje podataka</button>
+                                <?php
+                                    }
+                                ?>
                             </td>
                         </tr>
                     <?php }?>

@@ -8,19 +8,21 @@
 
     if (isset($_POST["id"])) {
         $id = (int)$_POST["id"];
-        $emp = new Employees();
-        $employees = $emp->selectAll('employees');
-        $i = 0;
-        foreach($employees as $em){
-            if($em['organization_id']==$id){
-                $i++;
-            }
-        }
-        if($i==0){
-            $organization->del('organization',$id);  
-            echo "Podaci su obrisani.";
-        }else {
-            echo "Podaci nisu obrisani, jer postoji unešen zaposleni koji ima ovu organizacionu jedinicu.";
-        }
+        $organization->del('organization',$id);  
+        echo "Podaci o organizacionoj jedinici su obrisani.";
+        // $emp = new Employees();
+        // $employees = $emp->selectAll('employees');
+        // $i = 0;
+        // foreach($employees as $em){
+        //     if($em['organization_id']==$id){
+        //         $i++;
+        //     }
+        // }
+        // if($i==0){
+        //     $organization->del('organization',$id);  
+        //     echo "Podaci su obrisani.";
+        // }else {
+        //     echo "Podaci nisu obrisani, jer postoji unešen zaposleni koji ima ovu organizacionu jedinicu.";
+        // }
     }
 ?>
