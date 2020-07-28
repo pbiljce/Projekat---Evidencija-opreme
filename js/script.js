@@ -77,6 +77,35 @@ function Del(id,modal,message,location,url){
         http.send("id=" + id);
     }
 }
+function DeleteMessage(messageDelete,modal){
+    var modDelete = document.getElementById(modal);
+    var div1 = document.createElement("div");
+    div1.className  = "modal";
+    div1.id = "modaldel";
+    var div2 = document.createElement("div");
+    div2.className= "modal-content modsize";
+    div1.appendChild(div2);
+    var div3 = document.createElement("div");
+    div2.appendChild(div3);
+    var p1 = document.createElement("p");
+    p1.textContent = "Brisanje podataka";
+    p1.className = "section-title bottom";
+    div3.appendChild(p1);
+    var p2 = document.createElement("p");
+    p2.textContent = messageDelete;
+    p2.className = "pmodal";
+    div2.appendChild(p2);
+    var button2 = document.createElement("button");
+    button2.className = "button blue";
+    button2.id = "cancel";
+    button2.textContent = "OK";
+    div2.appendChild(button2);
+    modDelete.appendChild(div1);
+    div1.style.display = "block";
+    button2.onclick = function(){
+        div1.style.display = "none";
+    }
+}
 
 //Funkcija za ažuriranje podataka
 function Change(id,modal,url){
@@ -159,6 +188,12 @@ function getSelectedCheckboxValues(name) {
         values.push(checkbox.value);
     });
     return values;
+}
+
+function selectRow(row)
+{
+    var firstInput = row.getElementsByTagName('input')[0];
+    firstInput.checked = !firstInput.checked;
 }
 
 //Funkcija za dobijanje id brojeva opreme koja se zadužuje na korisnika
